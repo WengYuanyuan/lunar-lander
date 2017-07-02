@@ -193,7 +193,7 @@ class Trial:
         env = gym.make('LunarLander-v2')
         if monitor:
             monitor_dir = '{}.loaded'.format(name) if load else name
-            env = gym.wrappers.Monitor(env, 'tmp/{}'.format(monitor_dir), force=True)
+            env = gym.wrappers.Monitor(env, 'tmp/{}'.format(monitor_dir), force=True, video_callable=False)
 
         self.episodes           = episodes
         self.truncate           = truncate

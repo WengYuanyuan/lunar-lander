@@ -48,7 +48,7 @@ def training(override=None):
 
 def evaluate_100(override=None):
     name = BEST if override is None else override
-    data = read(name)[:100]
+    data = read(name + '.loaded')[:100]
 
     plt.figure(2)
     plt.title('100-trial Performance')
