@@ -165,11 +165,12 @@ class Agent:
         else:
             return False
 
-    def update(self):
-        if not self.load:
+    def update(self, ann=True, epsilon=True):
+        if ann and not self.load:
             self.target_ann.set(self.ann.get())
             self.target_ann.dump()
-        self.epsilon.value *= self.epsilon.decay
+        if epsilon:
+            self.epsilon.value *= self.epsilon.decay
 
     def clear_frames(self):
         self.frames = 0
@@ -179,11 +180,13 @@ class Trial:
     def __init__(
         self,
         name='default',
-        episodes=10000,
+        episodes=2000,
+        training_frequency=1,
         load=False,
         monitor=True,
         record=True,
         stop=True,
+        truncate=False,
         verbosity=2,
         params={}
     ):
@@ -195,6 +198,7 @@ class Trial:
         self.episodes           = episodes
         self.name               = name
         self.params             = params
+        self.training_frequency = training_frequency
 
         self.load               = load
         self.record             = record
@@ -236,7 +240,10 @@ class Trial:
                 agent.learn()
                 total_reward += reward
 
-            agent.update()
+            if episode % self.training_frequency == 0:
+                agent.update(ann=True, epsilon=True)
+            else:
+                agent.update(ann=False, epsilon=True)
 
             self.rewards.append(total_reward)
             self.running_rewards.append(total_reward)
@@ -245,9 +252,10 @@ class Trial:
             if self.record:
                 writer.writerow([episode, total_reward, mean_reward])
 
-            if self.verbosity >= 2:
-                status = '*' if total_reward > 200 else ' '
-                print '{} #{}, Reward: {:.2f}, Epsilon: {:.2f}, Frames: {}; Running: {:.2f}'.format(status, episode, total_reward, agent.epsilon.value, agent.frames, mean_reward)
+            if self.verbosity >= 1.5:
+                if self.verbosity >= 2 or episode % 10 == 0:
+                    status = '*' if total_reward > 200 else ' '
+                    print '{} #{}, Reward: {:.2f}, Epsilon: {:.2f}, Frames: {}; Running: {:.2f}'.format(status, episode, total_reward, agent.epsilon.value, agent.frames, mean_reward)
 
             if mean_reward > 200:
                 max_episode = episode
@@ -258,6 +266,12 @@ class Trial:
                     celebrate = True
                 if self.stop and len(self.rewards) > 100:
                     break
+            elif mean_reward < -100 and episode >= 1000 and self.truncate:
+                if self.verbosity >= 1:
+                    print
+                    print '*** ABORT, ABORT! ***'
+                    print
+                break
 
         if self.verbosity >= 1:
             print '* Completed "{}" in {} episodes with {:.2f} mean reward'.format(self.name, episode, mean_reward)
