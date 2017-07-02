@@ -196,6 +196,7 @@ class Trial:
             env = gym.wrappers.Monitor(env, 'tmp/{}'.format(monitor_dir), force=True)
 
         self.episodes           = episodes
+        self.truncate           = truncate
         self.name               = name
         self.params             = params
         self.training_frequency = training_frequency
