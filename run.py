@@ -1,7 +1,6 @@
 from agent import Trial
 import csv
 
-# BEST = 'alpha'
 BEST = 'bravo'
 DIR = 'data/'
 PARAMS = [
@@ -36,7 +35,7 @@ PARAMS = [
 
 
 def get_name(params):
-    return 'grid-a{}-g-{}-e{}'.format(params['alpha'], params['gamma'], params['epsilon_decay'])
+    return 'grid-a{}-g{}-e{}'.format(params['alpha'], params['gamma'], params['epsilon_decay'])
 
 
 def get_names():
@@ -44,14 +43,14 @@ def get_names():
 
 
 def train_best():
-    name = 'bravo'
+    name = BEST
     trial = Trial(name, episodes=2000, stop=False, verbosity=2)
     max_episode, mean_reward, params, rewards = trial.run()
 
 
 def evaluate_best():
-    name = 'bravo'
-    trial = Trial(name, episodes=1000, load=True, verbosity=1, params={
+    name = BEST
+    trial = Trial(name, episodes=1000, load=True, stop=False, verbosity=2, params={
         'epsilon_max': 0
     })
     max_episode, mean_reward, params, rewards = trial.run()
@@ -63,7 +62,7 @@ def train_grid():
 
         for params in PARAMS:
             name = get_name(params)
-            trial = Trial(name, episodes=2000, record=True, stop=True, verbosity=1, params=params)
+            trial = Trial(name, episodes=1600, record=True, stop=True, truncate=True, verbosity=1.5, params=params)
             max_episode, mean_reward, params, _rewards = trial.run()
             writer.writerow([
                 name,
