@@ -45,7 +45,7 @@ def get_names():
 
 def train_best():
     name = 'bravo'
-    trial = Trial(name, episodes=2500, stop=False, verbosity=2)
+    trial = Trial(name, episodes=2000, stop=False, verbosity=2)
     max_episode, mean_reward, params, rewards = trial.run()
 
 
@@ -63,7 +63,7 @@ def train_grid():
 
         for params in PARAMS:
             name = get_name(params)
-            trial = Trial(name, episodes=2500, record=True, stop=False, verbosity=1, params=params)
+            trial = Trial(name, episodes=2000, record=True, stop=True, verbosity=1, params=params)
             max_episode, mean_reward, params, _rewards = trial.run()
             writer.writerow([
                 name,
