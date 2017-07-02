@@ -214,6 +214,7 @@ class Trial:
 
         agent = self.agent
         env   = self.env
+        celebrate = False
         max_episode = 0
 
         if self.record:
@@ -249,10 +250,11 @@ class Trial:
 
             if mean_reward > 200:
                 max_episode = episode
-                if self.verbosity >= 2:
+                if self.verbosity >= 2 and not celebrate:
                     print
                     print '*** WINNER, WINNER, CHICKEN DINNER ***'
                     print
+                    celebrate = True
                 if self.stop and len(self.rewards) > 100:
                     break
 
