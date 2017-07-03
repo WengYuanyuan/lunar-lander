@@ -126,7 +126,7 @@ class Agent:
             else:
                 t[a] = r + self.gamma * np.max(q_t[i])
 
-            y[i, :] = t
+            y[i] = t
 
         return (S, y)
 
@@ -147,7 +147,8 @@ class Agent:
         if (random.random() < self.epsilon.value):
             return self.env.action_space.sample()
         else:
-            return np.argmax(self.ann.predict(state))
+            reshaped = np.asarray(state).reshape((1, self.ns))
+            return np.argmax(self.ann.predict([reshaped]))
 
     def experience(self, s, a, r, s_, done):
         experience = {

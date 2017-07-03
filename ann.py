@@ -34,12 +34,7 @@ class ANN:
         )
 
     def predict(self, state):
-        try:
-            reshaped = np.asarray(state).reshape((1, self.input_dim))
-        except ValueError:
-            reshaped = state
-        prediction = self.model.predict(reshaped)
-        return prediction
+        return self.model.predict(state)
 
     # Weights management
     def set(self, weights):
