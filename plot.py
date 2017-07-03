@@ -63,7 +63,7 @@ def evaluate_100(override=None):
 def histogram(override=None):
     """ Plots a histogram of 1000 trials using the best agent """
     name = BEST if override is None else override
-    data = read(name)
+    data = read(name + '.loaded')
 
     plt.figure(3)
     plt.title('Rewards Histogram')
