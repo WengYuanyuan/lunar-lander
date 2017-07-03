@@ -13,7 +13,7 @@ A reinforcement learning agent for [OpenAI Gym](https://gym.openai.com/envs/Luna
 4. Run `./run` to reproduce experiments (graphs may differ due to randomness)
 
 > NOTE: If Box2D is causing errors, you may need to build from source. Run `git
-> submodule update --recursive --remote` and `./build_pybox2d`.
+> submodule init && git submodule update` and `./build_pybox2d`.
 
 ## References
 
