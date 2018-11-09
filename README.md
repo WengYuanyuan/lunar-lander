@@ -22,4 +22,3 @@ A reinforcement learning agent for [OpenAI Gym](https://gym.openai.com/envs/Luna
 - Hasselt et al, Deep Reinforcement Learning with Double Q-Learning (2015), https://arxiv.org/pdf/1509.06461.pdf
 - Matiisen, Demystifying Deep Reinforcement Learning (2015), https://www.intelnervana.com/demystifying-deep-reinforcement-learning/
 - Minh et al, Playing Atari with Deep Reinforcement Learning (2015), https://www.cs.toronto.edu/~vmnih/docs/dqn.pdf
-- Morales, Applied Reinforcement Learning iPython Notebooks, http://localhost:8888/notebooks/06-function-approximation.ipynb
