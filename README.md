@@ -23,4 +23,3 @@ A reinforcement learning agent for [OpenAI Gym](https://gym.openai.com/envs/Luna
 - Matiisen, Demystifying Deep Reinforcement Learning (2015), https://www.intelnervana.com/demystifying-deep-reinforcement-learning/
 - Minh et al, Playing Atari with Deep Reinforcement Learning (2015), https://www.cs.toronto.edu/~vmnih/docs/dqn.pdf
 - Morales, Applied Reinforcement Learning iPython Notebooks, http://localhost:8888/notebooks/06-function-approximation.ipynb
-- Piazza posts: @516 (esp. Charles Snider), @537
